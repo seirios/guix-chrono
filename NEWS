@@ -1,0 +1,6 @@
+;; -*- Scheme -*-
+;;
+;; This file contains Guix channel news.
+
+(channel-news
+ (version 0))
