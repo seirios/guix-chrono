@@ -53,7 +53,7 @@
 
 (define-public chrono-vsg
   (package
-   (name "projectCHRONO")
+   (name "projectCHRONO-vsg")
    (version "10.0.0")
    (source (origin
 	    (method git-fetch)
@@ -87,6 +87,6 @@
    (inputs (list chrono-blaze:blaze cuda-12.9 eigen-5 glew glfw hdf5 openblas openmpi
                  vsg vsg-imgui vsg-xchange))
    (home-page "https://projectchrono.org")
-   (synopsis "ProjectCHRONO")
+   (synopsis "ProjectCHRONO (with VSG module)")
    (description "An Open Source Multi-physics Simulation Engine.")
    (license license:bsd-3)))
