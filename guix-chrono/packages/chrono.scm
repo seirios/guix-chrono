@@ -1,8 +1,8 @@
 (define-module (guix-chrono packages chrono)
+  #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system cmake)
-  #:use-module (guix gexp)
   #:use-module ((guix licenses) #:prefix license:)
   ;; we define this because the substitute from guix-science has a bug
   #:use-module ((guix-chrono packages blaze) #:prefix chrono-blaze:)
@@ -33,10 +33,12 @@
      #:tests? #f
      ;; RUNPATH validation fails, since libcuda.so.1 is provided by NVIDIA driver
      #:validate-runpath? #f
+     ;; Build type: Release
+     #:build-type "Release"
      ;; Configuration flags
      #:configure-flags
      #~(list
-	"-DBUILD_DEMOS=ON"
+	"-DBUILD_DEMOS=OFF"
 	"-DCH_ENABLE_HDF5=ON"
 	"-DCH_ENABLE_MODULE_FSI=ON"
 	"-DCH_ENABLE_MODULE_FSI_SPH=ON"
@@ -45,7 +47,8 @@
 	"-DCH_ENABLE_MODULE_POSTPROCESS=ON"
 	"-DCH_ENABLE_MODULE_SENSOR=ON"
 	"-DCH_ENABLE_MODULE_VEHICLE=ON")))
-   (inputs (list chrono-blaze:blaze cuda-12.9 eigen-5 glew glfw hdf5 openblas openmpi))
+   (inputs (list chrono-blaze:blaze cuda-12.9 eigen-5 glew glfw openmpi))
+   (propagated-inputs (list hdf5 openblas))
    (home-page "https://projectchrono.org")
    (synopsis "ProjectCHRONO")
    (description "An Open Source Multi-physics Simulation Engine.")
@@ -70,10 +73,12 @@
      #:tests? #f
      ;; RUNPATH validation fails, since libcuda.so.1 is provided by NVIDIA driver
      #:validate-runpath? #f
+     ;; Build type: Release
+     #:build-type "Release"
      ;; Configuration flags
      #:configure-flags
      #~(list
-	"-DBUILD_DEMOS=ON"
+	"-DBUILD_DEMOS=OFF"
 	"-DCH_ENABLE_HDF5=ON"
 	"-DCH_ENABLE_MODULE_FSI=ON"
 	"-DCH_ENABLE_MODULE_FSI_SPH=ON"
@@ -84,8 +89,8 @@
 	"-DCH_ENABLE_MODULE_VEHICLE=ON"
 	"-DCH_ENABLE_MODULE_VSG=ON")))
    (native-inputs (list pkg-config))
-   (inputs (list chrono-blaze:blaze cuda-12.9 eigen-5 glew glfw hdf5 openblas openmpi
-                 vsg vsg-imgui vsg-xchange))
+   (inputs (list chrono-blaze:blaze cuda-12.9 eigen-5 glew glfw openmpi))
+   (propagated-inputs (list hdf5 openblas vsg vsg-imgui vsg-xchange))
    (home-page "https://projectchrono.org")
    (synopsis "ProjectCHRONO (with VSG module)")
    (description "An Open Source Multi-physics Simulation Engine.")

@@ -1,8 +1,8 @@
 (define-module (guix-chrono packages vsg)
+  #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system cmake)
-  #:use-module (guix gexp)
   #:use-module (guix utils)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages pkg-config)
@@ -73,7 +73,8 @@
 	    (method git-fetch)
 	    (uri (git-reference
 		  (url "https://github.com/vsg-dev/vsgImGui.git")
-		  (commit (string-append "v" version)) (recursive? #t)))
+		  (commit (string-append "v" version))
+                  (recursive? #t)))
 	    (file-name (git-file-name name version))
 	    (sha256
 	     (base32 "02gfz2af20fw4lsdrd61b79f2d7p1mm1nnc3phhdaazaqjjd648r"))))
