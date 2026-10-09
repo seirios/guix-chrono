@@ -85,6 +85,7 @@
 						   #~(append #$flags (list
 								      "-DCH_ENABLE_MODULE_SENSOR=ON"
 								      "-DCH_ENABLE_MODULE_VSG=ON")))))
+		   (native-inputs (modify-inputs (package-native-inputs chrono) (append pkg-config)))
 		   (inputs (modify-inputs (package-inputs chrono) (append glew glfw)))
 		   (propagated-inputs (modify-inputs (package-propagated-inputs chrono)
-						     (append vsg vsg-imgui vsg-exchange)))))
+						     (append vsg vsg-imgui vsg-xchange)))))
