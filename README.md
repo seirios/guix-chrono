@@ -7,16 +7,17 @@ This repository is a Guix channel providing the following packages:
   + `FSI_SPH`
   + `MULTICORE`
   + `POSTPROCESS`
-  + `SENSOR`
   + `VEHICLE`
 
-+ `projectCHRONO-vsg` with modules enabled:
-  + `HDF5`
-  + `FSI_SPH`
-  + `MULTICORE`
-  + `POSTPROCESS`
++ `projectCHRONO-sensor` with all modules in `projectChrono` plus:
+  + `IRRLICHT`
   + `SENSOR`
-  + `VEHICLE`
+
++ `projectCHRONO-vsg` with all modules in `projectCHRONO-sensor` plus:
   + `VSG`
 
-The specific version dependencies for module `VSG` are also defined as packages.
++ `projectCHRONO-mkl` with all modules in `projectCHRONO` plus:
+  + `PARDISO_MKL`
+
+The dependencies for module `VSG` are also defined as packages.
+The dependency NVIDIA OptiX for module `SENSOR` is also defined as a package.

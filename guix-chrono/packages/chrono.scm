@@ -7,7 +7,9 @@
   #:use-module ((guix licenses) #:prefix license:)
   ;; we define this because the substitute from guix-science has a bug
   #:use-module ((guix-chrono packages blaze) #:prefix chrono-blaze:)
+  #:use-module (guix-chrono packages optix)
   #:use-module (guix-chrono packages vsg)
+  #:use-module (gnu packages games)
   #:use-module (gnu packages gl)
   #:use-module (gnu packages maths)
   #:use-module (gnu packages mpi)
@@ -27,7 +29,8 @@
 		  (commit version)))
 	    (file-name (git-file-name name version))
 	    (sha256
-	     (base32 "0i4qz4cbgy8g9hkragpqhzqkk4waccrfzy6khs46hy2ll1yan2ps"))))
+	     (base32
+	      "0i4qz4cbgy8g9hkragpqhzqkk4waccrfzy6khs46hy2ll1yan2ps"))))
    (build-system cmake-build-system)
    (arguments
     (list
@@ -59,33 +62,63 @@
   (package/inherit chrono
 		   (name "projectCHRONO-mkl")
 		   (arguments
-		    (substitute-keyword-arguments (package-arguments chrono)
-						  ((#:configure-flags flags #~(list))
-						   #~(append #$flags (list
-								      "-DCH_ENABLE_MODULE_PARDISO_MKL=ON"
-                                                                      "-DMKL_THREADING=gnu_thread")))))
-		   (propagated-inputs (modify-inputs (package-propagated-inputs chrono)
-						     (append mkl-2023)))))
+		    (substitute-keyword-arguments
+		     (package-arguments chrono)
+		     ((#:configure-flags
+		       flags #~(list))
+		      #~(append #$flags
+				(list
+				 "-DCH_ENABLE_MODULE_PARDISO_MKL=ON"
+                                 "-DMKL_THREADING=gnu_thread")))))
+		   (propagated-inputs (modify-inputs
+				       (package-propagated-inputs
+					chrono)
+				       (append mkl-2023)))))
 
 (define-public chrono-sensor
   (package/inherit chrono
 		   (name "projectCHRONO-sensor")
 		   (arguments
-		    (substitute-keyword-arguments (package-arguments chrono)
-						  ((#:configure-flags flags #~(list))
-						   #~(append #$flags (list "-DCH_ENABLE_MODULE_SENSOR=ON")))))
-		   (inputs (modify-inputs (package-inputs chrono) (append glew glfw)))))
+		    (substitute-keyword-arguments
+		     (package-arguments chrono)
+		     ((#:configure-flags
+		       flags #~(list))
+		      #~
+		      (append #$flags
+			      (list
+                               (string-append
+				"-DIRRLICHT_INCLUDE_DIR="
+				(assoc-ref %build-inputs "irrlicht")
+				"/include/irrlicht")
+                               (string-append "-DIRRLICHT_LIBRARY="
+					      (assoc-ref %build-inputs
+							 "irrlicht")
+					      "/lib/libIrrlicht.so")
+                               "-DCH_ENABLE_MODULE_IRRLICHT=ON"
+			       "-DCH_ENABLE_MODULE_SENSOR=ON")))))
+                   (inputs
+                    (modify-inputs (package-inputs chrono)
+                                   (append optix)))
+		   (propagated-inputs
+		    (modify-inputs (package-propagated-inputs chrono)
+				   (append glew glfw irrlicht)))))
 
 (define-public chrono-vsg
-  (package/inherit chrono
+  (package/inherit chrono-sensor
 		   (name "projectCHRONO-vsg")
 		   (arguments
-		    (substitute-keyword-arguments (package-arguments chrono)
-						  ((#:configure-flags flags #~(list))
-						   #~(append #$flags (list
-								      "-DCH_ENABLE_MODULE_SENSOR=ON"
-								      "-DCH_ENABLE_MODULE_VSG=ON")))))
-		   (native-inputs (modify-inputs (package-native-inputs chrono) (append pkg-config)))
-		   (inputs (modify-inputs (package-inputs chrono) (append glew glfw)))
-		   (propagated-inputs (modify-inputs (package-propagated-inputs chrono)
-						     (append vsg vsg-imgui vsg-xchange)))))
+		    (substitute-keyword-arguments
+		     (package-arguments chrono-sensor)
+		     ((#:configure-flags
+		       flags #~(list))
+		      #~(append #$flags
+				(list "-DCH_ENABLE_MODULE_VSG=ON")))))
+		   (native-inputs
+		    (modify-inputs
+		     (package-native-inputs chrono-sensor)
+		     (append pkg-config)))
+		   (propagated-inputs (modify-inputs
+				       (package-propagated-inputs
+					chrono-sensor)
+				       (append vsg vsg-imgui
+					       vsg-xchange)))))

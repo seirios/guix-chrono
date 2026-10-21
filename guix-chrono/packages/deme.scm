@@ -19,7 +19,8 @@
                   (recursive? #t)))
 	    (file-name (git-file-name name version))
 	    (sha256
-	     (base32 "1x3r6i2yxijh0kl8x564j76s539rk2k5r60vhlgc7g8z8p4c8c6w"))))
+	     (base32
+	      "1x3r6i2yxijh0kl8x564j76s539rk2k5r60vhlgc7g8z8p4c8c6w"))))
    (build-system cmake-build-system)
    (arguments
     (list
@@ -32,12 +33,13 @@
      ;; Configuration flags
      #:configure-flags
      #~(list
-         "-DDEME_BUILD_DEMOS=OFF"
-         "-DDEME_BUILD_VISUALIZER=ON")))
+        "-DDEME_BUILD_DEMOS=OFF"
+        "-DDEME_BUILD_VISUALIZER=ON")))
    (native-inputs (list glfw))
    (inputs (list cuda-12.9))
    (propagated-inputs (list ))
    (home-page "https://github.com/projectchrono/DEM-Engine")
    (synopsis "SBEL Chrono DEM-Engine")
-   (description "DEM-Engine (DEME) simulates granular materials using one or two NVIDIA GPUs.")
+   (description
+    "DEM-Engine (DEME) simulates granular materials using one or two NVIDIA GPUs.")
    (license license:bsd-3)))
