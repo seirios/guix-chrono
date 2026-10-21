@@ -7,6 +7,7 @@
   #:use-module ((guix licenses) #:prefix license:)
   ;; we define this because the substitute from guix-science has a bug
   #:use-module ((guix-chrono packages blaze) #:prefix chrono-blaze:)
+  #:use-module ((guix-chrono packages mumps) #:prefix chrono-mumps:)
   #:use-module (guix-chrono packages optix)
   #:use-module (guix-chrono packages vsg)
   #:use-module (gnu packages games)
@@ -75,6 +76,22 @@
 					chrono)
 				       (append mkl-2023)))))
 
+(define-public chrono-mumps
+  (package/inherit chrono
+		   (name "projectCHRONO-mumps")
+		   (arguments
+		    (substitute-keyword-arguments
+		     (package-arguments chrono)
+		     ((#:configure-flags
+		       flags #~(list))
+		      #~(append #$flags
+				(list
+				 "-DCH_ENABLE_MODULE_MUMPS=ON")))))
+		   (propagated-inputs (modify-inputs
+				       (package-propagated-inputs
+					chrono)
+				       (append chrono-mumps:mumps)))))
+
 (define-public chrono-sensor
   (package/inherit chrono
 		   (name "projectCHRONO-sensor")
@@ -94,11 +111,15 @@
 					      (assoc-ref %build-inputs
 							 "irrlicht")
 					      "/lib/libIrrlicht.so")
+                               (string-append
+                                "-DOptiX_INSTALL_DIR="
+                                (assoc-ref %build-inputs
+					   "nvidia-optix"))
                                "-DCH_ENABLE_MODULE_IRRLICHT=ON"
 			       "-DCH_ENABLE_MODULE_SENSOR=ON")))))
                    (inputs
                     (modify-inputs (package-inputs chrono)
-                                   (append optix)))
+                                   (append nvidia-optix)))
 		   (propagated-inputs
 		    (modify-inputs (package-propagated-inputs chrono)
 				   (append glew glfw irrlicht)))))

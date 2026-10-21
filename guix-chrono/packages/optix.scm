@@ -5,7 +5,7 @@
   #:use-module (guix build-system copy)
   #:use-module ((guix-science-nonfree licenses) #:prefix nonfree:))
 
-(define-public optix
+(define-public nvidia-optix
   (package
    (name "nvidia-optix")
    (version "9.1.0")
@@ -19,19 +19,22 @@
         ("SDK" "/SDK")
         ("license_info.txt" "/share/doc/nvidia-optix/")
         ("OptiX_EndUserLicense.pdf" "/share/doc/nvidia-optix/")
-        ("OptiX_ThirdParty_Licenses.txt"
-	 "/share/doc/nvidia-optix/"))
+        ("OptiX_ThirdParty_Licenses.txt" "/share/doc/nvidia-optix/"))
      #:phases
      #~(modify-phases %standard-phases
                       (replace 'unpack
-			       (lambda* (#:key inputs #:allow-other-keys)
-				 (let ((source (assoc-ref inputs "source")))
-				   (invoke "sh" source "--skip-license"
+			       (lambda*
+				   (#:key inputs #:allow-other-keys)
+				 (let
+				     ((source
+				       (assoc-ref inputs "source")))
+				   (invoke "sh" source
+					   "--skip-license"
 					   "--prefix=" #$output))))
                       (delete 'install-license-files))))
    (source
-    (plain-file "SOURCES"
-		"Download source archive with an NVIDIA Developer Account and provide path to file using --with-source=nvidia-optix=<FILE>.\n"))
+    (plain-file "provide_sources.sh"
+		"#!/bin/sh\necho 'ERROR: Download source archive with an NVIDIA Developer Account and provide path to file using --with-source=nvidia-optix=<FILE>'\nexit 1\n"))
    (home-page "https://developer.nvidia.com/rtx/ray-tracing/optix")
    (synopsis "NVIDIA OptiX Ray Tracing Engine")
    (description

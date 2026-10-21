@@ -19,5 +19,7 @@ This repository is a Guix channel providing the following packages:
 + `projectCHRONO-mkl` with all modules in `projectCHRONO` plus:
   + `PARDISO_MKL`
 
-The dependencies for module `VSG` are also defined as packages.
-The dependency NVIDIA OptiX for module `SENSOR` is also defined as a package.
++ `projectCHRONO-mumps` with all modules in `projectCHRONO` plus:
+  + `MUMPS`
+
+Dependencies for all modules not available elsewhere (or not in the required versions) are also defined as packages.

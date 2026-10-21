@@ -54,5 +54,3 @@ SVML, SLEEF, and XSIMD;
 @item completely portable, high quality C++ source code.
 @end itemize")
    (license license:bsd-3)))
-
-blaze
