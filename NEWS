@@ -4,6 +4,10 @@
 
 (channel-news
  (version 0)
+ (entry (commit "15b1d02a4688e9e39822d057dd7ca8ed4947a413")
+	(title (en "Added support for MUMPS in projectCHRONO-mumps"))
+	(body (en "")))
+
  (entry (commit "adc035c68a0c759a9c1ffebf56d6dcd1ddbab979")
 	(title
 	 (en
