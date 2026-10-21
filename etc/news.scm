@@ -4,6 +4,9 @@
 
 (channel-news
  (version 0)
+ (entry (commit "adc035c68a0c759a9c1ffebf56d6dcd1ddbab979")
+    (title (en "Added support for Irrlicht and OptiX in projectCHRONO-sensor"))
+    (body (en "")))
  (entry (commit "31dfe49da04e63cd8b8538d99d0e6d91a1341e7f")
     (title (en "Added package for DEM-Engine"))
     (body (en "")))
