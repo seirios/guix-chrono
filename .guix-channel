@@ -1,7 +1,7 @@
 (channel
  (version 0)
  (url "https://github.com/seirios/guix-chrono.git")
- (news-file "etc/news.txt")
+ (news-file "NEWS")
  (dependencies
   (channel
    (name guix-science-nonfree)
