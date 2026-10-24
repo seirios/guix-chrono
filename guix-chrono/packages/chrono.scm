@@ -53,7 +53,7 @@
 	"-DCH_ENABLE_MODULE_POSTPROCESS=ON"
 	"-DCH_ENABLE_MODULE_VEHICLE=ON")))
    (inputs (list chrono-blaze:blaze cuda-12.9 eigen-5 openmpi))
-   (propagated-inputs (list hdf5 openblas))
+   (propagated-inputs (list gnuplot hdf5 openblas))
    (home-page "https://projectchrono.org")
    (synopsis "ProjectCHRONO")
    (description "An Open Source Multi-physics Simulation Engine.")
