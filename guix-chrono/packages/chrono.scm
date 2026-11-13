@@ -115,7 +115,8 @@
                                 "-DOptiX_INSTALL_DIR="
                                 (assoc-ref %build-inputs
 					   "nvidia-optix"))
-                               "-DCH_ENABLE_MODULE_IRRLICHT=ON"
+			       "-DCH_USE_SENSOR_OPTIX=ON"
+			       "-DCH_ENABLE_MODULE_IRRLICHT=ON"
 			       "-DCH_ENABLE_MODULE_SENSOR=ON")))))
                    (inputs
                     (modify-inputs (package-inputs chrono)
