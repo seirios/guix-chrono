@@ -22,7 +22,7 @@
 (define-public chrono
   (package
    (name "projectCHRONO")
-   (version "10.0.0")
+   (version "11.0.0-beta.1")
    (source (origin
 	    (method git-fetch)
 	    (uri (git-reference
@@ -31,7 +31,7 @@
 	    (file-name (git-file-name name version))
 	    (sha256
 	     (base32
-	      "0i4qz4cbgy8g9hkragpqhzqkk4waccrfzy6khs46hy2ll1yan2ps"))))
+	      "1nhzv5nb3aqjpkk959l8a2ba8q7w3r4dg6i6jsicvlpnx4gymmrn"))))
    (build-system cmake-build-system)
    (arguments
     (list
