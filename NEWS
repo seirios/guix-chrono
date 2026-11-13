@@ -4,6 +4,10 @@
 
 (channel-news
  (version 0)
+ (entry (commit "d8fd805c165b9e17ac23b8f52c8cecd3fba97f0a")
+	(title (en "Updated projectCHRONO, DEM-Engine versions"))
+	(body (en "")))
+
  (entry (commit "15b1d02a4688e9e39822d057dd7ca8ed4947a413")
 	(title (en "Added support for MUMPS in projectCHRONO-mumps"))
 	(body (en "")))
